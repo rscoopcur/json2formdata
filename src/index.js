@@ -7,8 +7,12 @@ function _buildFormData(formData, data, parentKey) {
       _buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
     });
   } else {
+    let useThisKey = parentKey;  
+    if ((data instanceof File) || (data instanceof Date)) {
+      useThisKey = CurrentKey;
+    }
     const value = data == null ? '' : data;
-    formData.append(parentKey, value);
+    formData.append(useThisKey, value);
   }
 }
 
